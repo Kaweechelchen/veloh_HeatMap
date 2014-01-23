@@ -3,8 +3,6 @@
     header('content-type: application/json; charset=utf-8');
     header("Access-Control-Allow-Origin: *");
 
-    $apiKey = 'YOURAPIKEYHERE';
-
     $jcdecaux_stations_data = file_get_contents('https://api.jcdecaux.com/vls/v1/stations?contract=Luxembourg&apiKey=' . $apiKey);
 
     $stations = json_decode($jcdecaux_stations_data, true);
