@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)http://www.patrick-wied.at/static/heatmapjs/example-heatmap-leaflet.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Veloh Heatmap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="heatmap.js example showing a static leaflet heatmap layer">
+    <meta name="keywords" content="leaflet heatmap, leaflet heatmap layer">
+    <meta name="author" content="@Kaweechelchen">
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css">
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" />
+<![endif]-->
+        <script type="text/javascript" src="inc/jquery.js"></script>
+    <script src="inc/leaflet-src.js"></script>
+        <script type="text/javascript" src="inc/heatmap.js"></script>
+        <script type="text/javascript" src="inc/heatmap-leaflet.js"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            $(function() {
+
+                var baseLayer = L.tileLayer(
+                    'http://{s}.tile.osm.org/{z}/{x}/{y}.png',{
+                        attribution: 'Made by <a href="https://mona.lu">Thierry Degeling</a> Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+                    }
+                );
+
+                var heatmapLayer = L.TileLayer.heatMap({
+                    radius: 40,
+                    opacity: 0.7,
+                    gradient: {
+                        0.65: "rgb(0,255,0)",
+                        0.95: "yellow",
+                        1.0: "rgb(255,0,0)"
+                    }
+                });
+
+                loadData( heatmapLayer );
+
+                setInterval(function() {
+
+                  loadData( heatmapLayer )
+
+                }, 60000);
+
+                var overlayMaps = {
+                    'Heatmap': heatmapLayer
+                };
+
+                var controls = L.control.layers(null, overlayMaps, {collapsed: false});
+
+                var map = new L.Map('heatmapArea', {
+                    center: new L.LatLng(49.6096, 6.129),
+                    zoom: 13,
+                    layers: [baseLayer, heatmapLayer]
+                });
+
+                controls.addTo(map);
+
+                // make accessible for debugging
+                layer = heatmapLayer;
+
+
+            });
+
+            function loadData(heatmapLayer) {
+
+                var request = $.ajax({
+                    type: 'get',
+                    url: 'http://localhost:8888/getData.php',
+                    dataType: 'json',
+                    success: function(data) {
+
+                        var jsonData = data;
+
+                    }
+                });
+
+                heatmapLayer.addData( [{"lat":49.632,"lon":6.1704,"value":70},{"lat":49.6201,"lon":6.1388,"value":53},{"lat":49.6173,"lon":6.126,"value":64},{"lat":49.5984,"lon":6.1323,"value":40},{"lat":49.63706,"lon":6.17044,"value":50},{"lat":49.5981,"lon":6.1377,"value":40},{"lat":49.59,"lon":6.1172,"value":55},{"lat":49.6046,"lon":6.133,"value":73},{"lat":49.6122,"lon":6.1072,"value":50},{"lat":49.6113,"lon":6.119,"value":60},{"lat":49.6294,"lon":6.1574,"value":67},{"lat":49.6126,"lon":6.0977,"value":25},{"lat":49.57337,"lon":6.14397,"value":40},{"lat":49.6104,"lon":6.1315,"value":65},{"lat":49.6077,"lon":6.1349,"value":65},{"lat":49.6199,"lon":6.1444,"value":50},{"lat":49.61086,"lon":6.08097,"value":45},{"lat":49.6134,"lon":6.1258,"value":55},{"lat":49.6264,"lon":6.1613,"value":67},{"lat":49.5911,"lon":6.1057,"value":20},{"lat":49.6318,"lon":6.1741,"value":70},{"lat":49.6127,"lon":6.1311,"value":40},{"lat":49.60164,"lon":6.13736,"value":60},{"lat":49.6216,"lon":6.1565,"value":45},{"lat":49.5998,"lon":6.1225,"value":65},{"lat":49.6096,"lon":6.129,"value":72},{"lat":49.6343,"lon":6.1671,"value":67},{"lat":49.58421,"lon":6.14202,"value":40},{"lat":49.6049,"lon":6.1296,"value":33},{"lat":49.5912,"lon":6.1252,"value":60},{"lat":49.6098,"lon":6.1062,"value":20},{"lat":49.60001,"lon":6.10826,"value":32},{"lat":49.6094,"lon":6.1193,"value":53},{"lat":49.6237,"lon":6.1606,"value":50},{"lat":49.6037,"lon":6.131,"value":35},{"lat":49.5967,"lon":6.1404,"value":47},{"lat":49.608,"lon":6.1122,"value":27},{"lat":49.6002,"lon":6.1336,"value":17},{"lat":49.6028,"lon":6.1365,"value":50},{"lat":49.58043,"lon":6.11465,"value":50},{"lat":49.6114,"lon":6.1267,"value":87},{"lat":49.6162,"lon":6.0984,"value":75},{"lat":49.6062,"lon":6.1059,"value":40},{"lat":49.6133,"lon":6.117,"value":55},{"lat":49.6042,"lon":6.1119,"value":36},{"lat":49.6301,"lon":6.16843,"value":50},{"lat":49.6202,"lon":6.1227,"value":67},{"lat":49.6126,"lon":6.1242,"value":60},{"lat":49.6219,"lon":6.1516,"value":60},{"lat":49.60136,"lon":6.11581,"value":30},{"lat":49.5983,"lon":6.1178,"value":40},{"lat":49.5911,"lon":6.1416,"value":15},{"lat":49.60289,"lon":6.09322,"value":20},{"lat":49.61769,"lon":6.08276,"value":55},{"lat":49.6219,"lon":6.1118,"value":42},{"lat":49.6008,"lon":6.1281,"value":67},{"lat":49.58237,"lon":6.13624,"value":65},{"lat":49.6147,"lon":6.1211,"value":60},{"lat":49.624,"lon":6.1498,"value":60},{"lat":49.6255,"lon":6.1482,"value":67},{"lat":49.6238,"lon":6.1188,"value":73},{"lat":49.6055,"lon":6.1,"value":60},{"lat":49.63713,"lon":6.16458,"value":55},{"lat":49.5939,"lon":6.1252,"value":70},{"lat":49.61489,"lon":6.07275,"value":60},{"lat":49.57756,"lon":6.13727,"value":55},{"lat":49.5834,"lon":6.1156,"value":60},{"lat":49.61909,"lon":6.07227,"value":70},{"lat":49.6059,"lon":6.1199,"value":30},{"lat":49.61925,"lon":6.10842,"value":25},{"lat":49.59459,"lon":6.14277,"value":50}] );
+
+            }
+
+        </script>
+  <link type="text/css" rel="stylesheet" href="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/style.css"><script type="text/javascript" charset="utf-8" src="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/js/page_context.js"></script></head>
+
+  <body screen_capture_injected="true">
+
+    <div id="heatmapArea" class="well leaflet-container leaflet-fade-anim" style="position: absolute; top:0; left: 0; width: 100%; min-height: 100%" tabindex="0">
+    </div>
+    <script type="text/javascript" charset="utf-8">
+            /*var velohdata = [{lat: 49.6096, lon: 6.129, value: 1}];*/
+    </script>
