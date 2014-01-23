@@ -1,6 +1,6 @@
 <?php
 
-    //header('content-type: application/json; charset=utf-8');
+    header('content-type: application/json; charset=utf-8');
     header("Access-Control-Allow-Origin: *");
 
     $apiKey = file_get_contents('apikey.txt');
