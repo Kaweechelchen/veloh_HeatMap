@@ -1,0 +1,19 @@
+/* TEAM */
+
+    Developer: Thierry Degeling
+    Contact: thierry.degeling@gmail.com
+    Twitter: @Kaweechelchen
+    From:Esch-sur-Alzette, Luxembourg
+
+/* THANKS */
+
+    Javascript debugger: Thierry Nicola
+    Twitter: @littleiffel
+    From:Luxembourg
+
+/* SITE */
+    Last update:2014/01/24
+    Language: English
+    Doctype:HTML5
+    IDE: Sublime Text 3
+    Components: jQuery, heatmapJS, LeafletJS
